@@ -5,7 +5,12 @@ const app = express();
 const port = 4000;
 const cors = require('cors');
 
-app.use(cors());
+const corsOptions = {
+    origin: 'https://4a14dfc0.waktaverse-chatbot.pages.dev',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+  }
+
+app.use(cors(corsOptions));
 app.use(express.json())
 
 const { Configuration, OpenAIApi } = require("openai");
