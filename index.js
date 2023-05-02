@@ -46,6 +46,7 @@ app.post("/chat", async (req, res) => {
     ],
   });
   console.log(completion.data.choices[0].message.content);
+  console.log(req.body.inputValue)
   res.send(completion.data.choices[0].message.content);
 });
 
