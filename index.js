@@ -5,9 +5,11 @@ const app = express();
 const port = 4000;
 const cors = require('cors');
 
+app.use(cors({
+  origin: 'https://wakgpt.xyz',
+  credentials: true
+}));
 
-
-app.use(cors());
 app.use(express.json())
 
 const { Configuration, OpenAIApi } = require("openai");
