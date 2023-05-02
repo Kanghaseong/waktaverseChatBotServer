@@ -37,12 +37,11 @@ app.post("/chat", async (req, res) => {
     ],
   });
   console.log(completion.data.choices[0].message.content);
-  res.header("Access-Control-Allow-Origin", "https://wakgpt.xyz/");
   res.send(completion.data.choices[0].message.content);
 });
 
 app.get("/", (req, res)=> {
-  res.send("hi")
+  res.send("hi")  
 })
 
 app.listen(port, () => {
