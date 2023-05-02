@@ -5,12 +5,9 @@ const app = express();
 const port = 4000;
 const cors = require('cors');
 
-const corsOptions = {
-    origin: 'https://wakgpt.xyz/',
-    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
-  }
 
-app.use(cors(corsOptions));
+
+app.use(cors());
 app.use(express.json())
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -40,7 +37,7 @@ app.post("/chat", async (req, res) => {
     ],
   });
   console.log(completion.data.choices[0].message.content);
-
+  res.header("Access-Control-Allow-Origin", "https://wakgpt.xyz/");
   res.send(completion.data.choices[0].message.content);
 });
 
