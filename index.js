@@ -13,21 +13,28 @@ app.use(cors({
 app.use(express.json());
 
 const { Configuration, OpenAIApi } = require("openai");
+const path = require("path");
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
 const openai = new OpenAIApi(configuration);
 
-let Gosegu = "";
+let Gosegu = '';
 
-fs.readFile("goseguText.txt", "utf8", (err, data) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
-  Gosegu = data;
-});
+const filePath = path.join(__dirname, 'goseguText.txt');
+
+if (fs.existsSync(filePath)) {
+  fs.readFile(filePath, 'utf8', (err, data) => {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    Gosegu = data;
+  });
+} else {
+  console.error('File not found: goseguText.txt');
+}
 
 app.post("/chat", async (req, res) => {
   const inputValue = req.body.inputValue;
