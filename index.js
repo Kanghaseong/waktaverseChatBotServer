@@ -1,16 +1,16 @@
 require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
+const cors = require('cors');
+const helmet = require('helmet');
 const app = express();
 const port = 4000;
-const cors = require('cors');
-
+app.use(helmet());
 app.use(cors({
   origin: 'https://wakgpt.xyz',
   credentials: true
 }));
-
-app.use(express.json())
+app.use(express.json());
 
 const { Configuration, OpenAIApi } = require("openai");
 const configuration = new Configuration({
