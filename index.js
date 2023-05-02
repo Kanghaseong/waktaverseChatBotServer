@@ -6,7 +6,7 @@ const port = 4000;
 const cors = require('cors');
 
 const corsOptions = {
-    origin: 'https://8f76a677.waktaverse-chatbot.pages.dev/',
+    origin: 'https://wakgpt.xyz/',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
   }
 
