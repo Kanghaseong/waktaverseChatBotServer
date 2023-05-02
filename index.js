@@ -7,7 +7,7 @@ const app = express();
 const port = 4000;
 app.use(helmet());
 app.use(cors({
-  origin: 'https://wakgpt.xyz',
+  origin: ['https://wakgpt.xyz', 'http://localhost:3000'],
   credentials: true
 }));
 app.use(express.json());
