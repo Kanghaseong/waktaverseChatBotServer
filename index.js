@@ -1,15 +1,17 @@
 require("dotenv").config();
 const express = require("express");
 const fs = require("fs");
-const cors = require('cors');
-const helmet = require('helmet');
+const cors = require("cors");
+const helmet = require("helmet");
 const app = express();
 const port = 4000;
 app.use(helmet());
-app.use(cors({
-  origin: ['https://wakgpt.xyz', 'http://localhost:3000'],
-  credentials: true
-}));
+app.use(
+  cors({
+    origin: ["https://wakgpt.xyz", "http://localhost:3000"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 const { Configuration, OpenAIApi } = require("openai");
@@ -20,12 +22,12 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-let Gosegu = '';
+let Gosegu = "";
 
-const filePath = path.join(__dirname, 'goseguText.txt');
+const filePath = path.join(__dirname, "goseguText.txt");
 
 if (fs.existsSync(filePath)) {
-  fs.readFile(filePath, 'utf8', (err, data) => {
+  fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
       console.error(err);
       return;
@@ -33,7 +35,7 @@ if (fs.existsSync(filePath)) {
     Gosegu = data;
   });
 } else {
-  console.error('File not found: goseguText.txt');
+  console.error("File not found: goseguText.txt");
 }
 
 app.post("/chat", async (req, res) => {
@@ -46,13 +48,13 @@ app.post("/chat", async (req, res) => {
     ],
   });
   console.log(completion.data.choices[0].message.content);
-  console.log(req.body.inputValue)
+  console.log(req.body.inputValue);
   res.send(completion.data.choices[0].message.content);
 });
 
-app.get("/", (req, res)=> {
-  res.send("hi")  
-})
+app.get("/", (req, res) => {
+  res.send("hi");
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
