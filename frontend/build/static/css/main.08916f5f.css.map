@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/main.08916f5f.css","mappings":"AAAA,cACE,qBAAuB,CAEvB,eAAgB,CADhB,YAEF","sources":["index.css"],"sourcesContent":[".text-display {\r\n  border: 1px solid black;\r\n  padding: 10px;\r\n  margin-top: 10px;\r\n}\r\n"],"names":[],"sourceRoot":""}
