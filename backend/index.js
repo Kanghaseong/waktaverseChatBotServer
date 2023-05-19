@@ -8,7 +8,7 @@ const port = 4000;
 app.use(helmet());
 app.use(
   cors({
-    origin: ["https://wakgpt.xyz", "http://localhost:3000"],
+    origin: ["https://wakgpt.xyz","https://waktaversechatbotserver.pages.dev/", "http://localhost:3000"],
     credentials: true,
   })
 );
