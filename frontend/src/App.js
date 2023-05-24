@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import GoogleLoginButton from './Auth';
 import "./index.css";
 
 function App() {
@@ -47,6 +48,8 @@ function App() {
         </button>
       </form>
       {isLoading && <p>Loading...</p>}
+      <h4>구글 로그인 예제</h4>
+      <GoogleLoginButton />
       <ul>
         {texts.map((text, index) => (
           <li key={index}>{text}</li>
