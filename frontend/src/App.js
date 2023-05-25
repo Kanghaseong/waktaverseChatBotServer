@@ -1,61 +1,21 @@
 import React, { useState } from "react";
-import axios from "axios";
-import GoogleLoginButton from './Auth';
-import "./index.css";
+import styled from "styled-components";
+import Sidebar from "./SideBar";
+import Body from "./Body"
+
+const Container = styled.div`
+  display: flex;
+  height: 100vh;
+`;
+
 
 function App() {
-  const [texts, setTexts] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  axios.defaults.withCredentials = true;
-
-  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
-
-  const handleButtonClick = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    try {
-      const response = await axios.post(
-        apiEndpoint,
-        { inputValue },
-        { withCredentials: true }
-      );
-      const newTexts = [...texts, inputValue, response.data];
-      setTexts(newTexts);
-      setInputValue("");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
   
-
   return (
-    <div className="App">
-      <h1>고세구 GPT</h1>
-      <form onSubmit={handleButtonClick}>
-        <label>
-          고세구 한테 할 말을 입력하세요
-          <input
-            type="text"
-            value={inputValue}
-            onChange={(event) => setInputValue(event.target.value)}
-          />
-        </label>
-        <button type="submit" disabled={isLoading}>
-          전송
-        </button>
-      </form>
-      {isLoading && <p>Loading...</p>}
-      <h4>구글 로그인 예제</h4>
-      <GoogleLoginButton />
-      <ul>
-        {texts.map((text, index) => (
-          <li key={index}>{text}</li>
-        ))}
-      </ul>
-    </div>
+      <Container>
+        <Sidebar/>
+        <Body/>
+      </Container>
   );
 }
 
