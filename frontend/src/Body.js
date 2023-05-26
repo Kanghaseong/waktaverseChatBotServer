@@ -5,7 +5,7 @@ import styled from "styled-components";
 const BodyStyled = styled.div`
   display: flex;
   flex: 6.5;
-  background-color: #e4dccf;
+  background-color: #EEE9DA;
   flex-direction: column;
   text-align: center;
   
@@ -13,40 +13,32 @@ const BodyStyled = styled.div`
 
 const UserInputAreaStyled = styled.div`
   display: flex;
-  background-color: #615645;
+  background-color: #BDCDD6;
   flex-direction: column;
   justify-content: flex-end;
-  height: 100vh;
+  height: 20vh;
   
-
 `;
 
 const UserInputBoxStyled = styled.div`
-  background-color: #bec497;
-  height: 20vh;
+  background-color: #BDCDD6;
+  height: 8vh;
+  
 
 `;
 const TextAreaStyled = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #946a6d;
+  background-color: #EEE9DA;
   overflow: auto;
-  height: 60vh;
+  height: 100vh;
 
 `;
 const TextStyled = styled.div`
-  background-color: #946a6d;
+  background-color: #d1ccbc;
 `;
 export default function Body() {
-  const [contents, setcontents] = useState([
-    "안녕하세요 이것은 테스트용입닏.",
-    "안녕하세요 이것은 테스트용입닏.",
-    "안녕하세요 이것은 테스트용입닏.",
-    "안녕하세요 이것은 테스트용입닏.",
-    "안녕하세요 이것은 테스트용입닏.",
-    "안녕하세요 이것은 테스트용입닏.",
-
-  ]);
+  const [contents, setcontents] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   axios.defaults.withCredentials = true;

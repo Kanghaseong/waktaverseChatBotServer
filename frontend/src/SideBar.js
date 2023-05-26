@@ -8,7 +8,7 @@ const SideBarStyled = styled.div`
   margin: 0;
   padding: 0;
   flex: 1;
-  background-color: #576F72;
+  background-color: #6096B4;
   display: flex;
   flex-direction: column;
 `;

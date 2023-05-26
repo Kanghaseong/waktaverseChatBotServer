@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 
 const Button = styled.button`
-  background-color: #7d9d9c;
+  background-color: #93BFCF;
   text-align: center;
   margin: 0.5rem;
   height: 3rem;
   line-height: 3rem;
   border-radius: 3%;
-  border: 2px solid #6b8786;
+  border: 2px solid #AFD3E2;
   padding: 0;
   cursor: pointer;
 
