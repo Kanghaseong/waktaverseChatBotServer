@@ -29,8 +29,10 @@ export default function SideBar() {
     
   return (
     <SideBarStyled>
-        <NewChatButton onAddItem={handleAddItem} />
+        <NewChatButton onAddItem={handleAddItem}/>
         {sidebarItems}
+
+        
       <GoogleLoginWrapper>
         <GoogleLoginButton />
       </GoogleLoginWrapper>

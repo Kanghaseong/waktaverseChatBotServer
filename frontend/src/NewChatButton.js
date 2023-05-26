@@ -15,12 +15,15 @@ const Button = styled.button`
   &:active {
     transform: translateY(1px); /* 버튼을 아래로 1px 이동시킵니다 */
   }
+  &:hover {
+    background-color: #8eabab; /* 호버링할 때 밝아지는 색상 */
+  }
 `;
 
 export default function NewChatButton({ onAddItem }) {
-    const handleClick = () => {
-      onAddItem();
-    };
-  
-    return <Button onClick={handleClick}>New Chat</Button>;
-  }
+  const handleClick = () => {
+    onAddItem();
+  };
+
+  return <Button onClick={handleClick}>New Chat</Button>;
+}
