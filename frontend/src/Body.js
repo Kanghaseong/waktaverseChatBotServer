@@ -1,66 +1,63 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 
 const BodyStyled = styled.div`
   display: flex;
   flex: 6.5;
-  background-color: #EEE9DA;
+  background-color: #eee9da;
   flex-direction: column;
   text-align: center;
-  
 `;
 
 const InputAreaStyled = styled.div`
   display: flex;
-  background-color: #BDCDD6;
+  background-color: #bdcdd6;
   flex-direction: column;
   justify-content: flex-end;
   height: 20vh;
-  
 `;
 
 const InputBoxStyled = styled.div`
-  background-color: #BDCDD6;
+  background-color: #bdcdd6;
   height: 8vh;
-  
-
 `;
 const TextAreaStyled = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #EEE9DA;
+  background-color: #eee9da;
   overflow: auto;
   height: 100vh;
-
 `;
 const TextStyled = styled.div`
   background-color: #d1ccbc;
 `;
+
 export default function Body() {
-  const [contents, setcontents] = useState([]);
+  const [contents, setContents] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
   axios.defaults.withCredentials = true;
 
-  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
-
   const handleButtonClick = async (event) => {
-    event.preventDefault();
-    setIsLoading(true);
-    try {
-      const response = await axios.post(
-        apiEndpoint,
-        { inputValue },
-        { withCredentials: true }
-      );
-      const newContents = [...contents, inputValue, response.data];
-      setcontents(newContents);
+    if (inputValue) {
+      event.preventDefault();
+      setContents([...contents, inputValue]);
+      setIsLoading(true);
       setInputValue("");
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setIsLoading(false);
+      try {
+        const response = await axios.post(
+          apiEndpoint,
+          { inputValue },
+          { withCredentials: true }
+        );
+        setContents((prevItems) => [...prevItems, response.data]); 
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 
