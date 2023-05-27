@@ -11,7 +11,7 @@ const BodyStyled = styled.div`
   
 `;
 
-const UserInputAreaStyled = styled.div`
+const InputAreaStyled = styled.div`
   display: flex;
   background-color: #BDCDD6;
   flex-direction: column;
@@ -20,7 +20,7 @@ const UserInputAreaStyled = styled.div`
   
 `;
 
-const UserInputBoxStyled = styled.div`
+const InputBoxStyled = styled.div`
   background-color: #BDCDD6;
   height: 8vh;
   
@@ -72,8 +72,8 @@ export default function Body() {
           <TextStyled key={index}>{content}</TextStyled>
         ))}
       </TextAreaStyled>
-      <UserInputAreaStyled>
-        <UserInputBoxStyled>
+      <InputAreaStyled>
+        <InputBoxStyled>
           <form onSubmit={handleButtonClick}>
             <label>
               <input
@@ -86,8 +86,8 @@ export default function Body() {
               전송
             </button>
           </form>
-        </UserInputBoxStyled>
-      </UserInputAreaStyled>
+        </InputBoxStyled>
+      </InputAreaStyled>
     </BodyStyled>
   );
 }
