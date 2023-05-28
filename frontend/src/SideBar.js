@@ -21,7 +21,7 @@ const GoogleLoginWrapper = styled.div`
 
 export default function SideBar({loginFlag}) {
     const [sidebarItems, setSidebarItems] = useState([]);
-    const [isLogin, setIsLogin] = useState(false);
+    const [isLogin, setIsLogin] = useState(false); // 이 변수이름도 로그인플래그로 하는게 맞는거같은데 일단 보류 중
 
     const handleAddItem = () => {
       const newItem = <SideBarItem key={sidebarItems.length} />;
@@ -40,7 +40,7 @@ export default function SideBar({loginFlag}) {
 
         
       <GoogleLoginWrapper>
-        {isLogin ? <div>hi, ***</div> : <GoogleLoginButton loginFlag={handleLoginState}/>}
+        {isLogin ? <div>로그인 되었습니다.</div> : <GoogleLoginButton loginFlag={handleLoginState}/>}
       </GoogleLoginWrapper>
     </SideBarStyled>
   );

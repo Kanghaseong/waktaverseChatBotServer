@@ -12,8 +12,6 @@ function App() {
   const [loginFlag, setLoginFlag] = useState(false);
   const handleLoginState = (LoginState) => {
     setLoginFlag(LoginState);
-    console.log("im APP state login flag")
-    alert(1)
   };
 
   return (
