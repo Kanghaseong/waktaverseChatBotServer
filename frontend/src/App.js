@@ -8,14 +8,19 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-
 function App() {
-  
+  const [loginFlag, setLoginFlag] = useState(false);
+  const handleLoginState = (LoginState) => {
+    setLoginFlag(LoginState);
+    console.log("im APP state login flag")
+    alert(1)
+  };
+
   return (
-      <Container>
-        <Sidebar/>
-        <Body/>
-      </Container>
+    <Container>
+      <Sidebar loginFlag={handleLoginState}/>
+      <Body />
+    </Container>
   );
 }
 

@@ -59,6 +59,7 @@ export default function Body() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
+  const apiEndpointDEV = "http://localhost:4000/chat";
   axios.defaults.withCredentials = true;
 
   const handleButtonClick = async (event) => {
@@ -69,7 +70,7 @@ export default function Body() {
       setInputValue("");
       try {
         const response = await axios.post(
-          apiEndpoint,
+          apiEndpointDEV,
           { inputValue },
           { withCredentials: true }
         );

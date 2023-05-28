@@ -1,23 +1,25 @@
+import { GoogleLogin } from "@react-oauth/google";
+import { GoogleOAuthProvider } from "@react-oauth/google";
+import axios from "axios";
 
-import {GoogleLogin} from "@react-oauth/google";
-import {GoogleOAuthProvider} from "@react-oauth/google";
 
-const GoogleLoginButton = () => {
-    const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
-    return(
+const GoogleLoginButton = ({loginFlag}) => {
+  const clientId = process.env.REACT_APP_GOOGLE_AUTH_CLIENT_ID;
 
-            <GoogleOAuthProvider clientId={clientId}>
-                <GoogleLogin
-                    onSuccess={(res) => {
-                        console.log(res);
-                    }}
-                    onFailure={(err) => {
-                        console.log(err);
-                    }}
-                />
-            </GoogleOAuthProvider>
 
-    );
+  return (
+    <GoogleOAuthProvider clientId={clientId}>
+      <GoogleLogin
+        onSuccess={(res) => {
+          console.log(res);
+          loginFlag(true);
+        }}
+        onFailure={(err) => {
+          console.log(err);
+        }}
+      />
+    </GoogleOAuthProvider>
+  );
 };
 
-export default GoogleLoginButton
+export default GoogleLoginButton;

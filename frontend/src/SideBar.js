@@ -19,22 +19,28 @@ const GoogleLoginWrapper = styled.div`
   margin: 1rem;
 `;
 
-export default function SideBar() {
+export default function SideBar({loginFlag}) {
     const [sidebarItems, setSidebarItems] = useState([]);
+    const [isLogin, setIsLogin] = useState(false);
 
     const handleAddItem = () => {
       const newItem = <SideBarItem key={sidebarItems.length} />;
       setSidebarItems((prevItems) => [...prevItems, newItem]);
+    } 
+
+    const handleLoginState = (LoginState)=> {
+      setIsLogin(LoginState);
+      loginFlag(LoginState);
     }
     
   return (
     <SideBarStyled>
         <NewChatButton onAddItem={handleAddItem}/>
-        {sidebarItems}
+        {sidebarItems}  
 
         
       <GoogleLoginWrapper>
-        <GoogleLoginButton />
+        {isLogin ? <div>hi, ***</div> : <GoogleLoginButton loginFlag={handleLoginState}/>}
       </GoogleLoginWrapper>
     </SideBarStyled>
   );
