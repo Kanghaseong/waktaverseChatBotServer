@@ -20,9 +20,10 @@ const TextAreaStyled = styled.div`
 `;
 
 const TextStyled = styled.div`
-  background-color: #d1ccbc;
+  border-bottom: 1px solid #d1ccbc;
+  background-color: ${(props) =>
+    props.primary % 2 == 0 ? "#eee9da" : "#d1ccbc"};
 `;
-
 
 const InputAreaStyled = styled.div`
   display: flex;
@@ -51,6 +52,7 @@ const Input = styled.input`
   background-color: #cfdfe8;
   border: 1px;
   border-radius: 5px;
+  padding-left: 10px;
   &:hover {
     border: 1px solid #daebf5;
   }
@@ -70,8 +72,8 @@ export default function Body() {
   axios.defaults.withCredentials = true;
 
   const handleButtonClick = async (event) => {
+    event.preventDefault();
     if (inputValue) {
-      event.preventDefault();
       setContents([...contents, inputValue]);
       setIsLoading(true);
       setInputValue("");
@@ -97,7 +99,7 @@ export default function Body() {
     <BodyStyled>
       <TextAreaStyled>
         {contents.map((content, index) => (
-          <TextStyled key={index}>
+          <TextStyled key={index} primary={index}>
             <ParaGraph content={content}></ParaGraph>
           </TextStyled>
         ))}
