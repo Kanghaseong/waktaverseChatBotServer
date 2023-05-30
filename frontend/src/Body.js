@@ -57,6 +57,7 @@ const Input = styled.input`
   &:hover {
     border: 1px solid #daebf5;
   }
+  box-sizing: border-box; /* box-sizing 속성 추가 */
 `;
 
 const Button = styled.button`
