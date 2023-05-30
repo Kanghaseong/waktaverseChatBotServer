@@ -47,6 +47,9 @@ const Input = styled.input`
   background-color: #cfdfe8;
   border: 1px;
   border-radius: 5px;
+  &:hover {
+    border: 1px solid #daebf5;
+  }
 `;
 
 const Button = styled.button`
