@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { ReactComponent as Svg } from "./assets/SubmitButtonSvg.svg";
 import ParaGraph from "./Paragraph";
 const BodyStyled = styled.div`
@@ -17,6 +17,7 @@ const TextAreaStyled = styled.div`
   background-color: #eee9da;
   overflow: auto;
   height: 100vh;
+  scroll-behavior: smooth;
 `;
 
 const TextStyled = styled.div`
@@ -63,13 +64,35 @@ const Button = styled.button`
   background-color: transparent;
 `;
 
+const RotateAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+
+const AnimatedSvg = styled(Svg)`
+  animation: ${RotateAnimation} 1s linear infinite;
+`;
+
 export default function Body() {
   const [contents, setContents] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const textareaRef = useRef(null);
+  const imageUrls = ["logo192.png", "gosegu-profile-image.jpg"];
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
   const apiEndpointDEV = "http://localhost:4000/chat";
   axios.defaults.withCredentials = true;
+
+  useEffect(() => {
+    // 요소가 추가될 때 스크롤을 가장 아래로 이동
+    if (textareaRef.current) {
+      textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
+    }
+  }, [contents]); // contents 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
 
   const handleButtonClick = async (event) => {
     event.preventDefault();
@@ -97,16 +120,18 @@ export default function Body() {
 
   return (
     <BodyStyled>
-      <TextAreaStyled>
+      <TextAreaStyled ref={textareaRef}>
         {contents.map((content, index) => (
           <TextStyled key={index} primary={index}>
-            <ParaGraph content={content}></ParaGraph>
+            <ParaGraph
+              content={content}
+              imageUrl={imageUrls[index % 2]}
+            ></ParaGraph>
           </TextStyled>
         ))}
       </TextAreaStyled>
 
       <InputAreaStyled>
-        <WaitingDiv>{isLoading && <p>Loading...</p>}</WaitingDiv>
         <InputBoxStyled>
           <form onSubmit={handleButtonClick}>
             <label>
@@ -117,7 +142,7 @@ export default function Body() {
               />
             </label>
             <Button type="submit" disabled={isLoading}>
-              <Svg></Svg>
+              {isLoading ? <AnimatedSvg /> : <Svg />}
             </Button>
           </form>
         </InputBoxStyled>

@@ -13,9 +13,10 @@ const Div = styled.div`
 
 const Img = styled.img`
   margin-left: 28rem;
-  width: 2rem;
-  height: 2rem;
-  border: 1px solid black;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 5%;
+  border: 1px solid #7a776d;
 `;
 
 const Ptag = styled.p`
@@ -24,13 +25,14 @@ const Ptag = styled.p`
 const PtagCon = styled.div`
   width: 40rem;
 `;
-export default function ParaGraph({ content }) {
+export default function ParaGraph({ content, imageUrl }) {
   return (
     <Div>
-      <Img src="logo192.png" alt="user-image" />
+      <Img src={imageUrl} alt="user-image" />
       <PtagCon>
         <Ptag>{content}</Ptag>
       </PtagCon>
     </Div>
   );
 }
+
