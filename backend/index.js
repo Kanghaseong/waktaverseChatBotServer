@@ -5,6 +5,8 @@ const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
 const port = 4000;
+const jwt_decode = require('jwt-decode');
+
 app.use(helmet());
 app.use(
   cors({
@@ -51,6 +53,19 @@ app.post("/chat", async (req, res) => {
   console.log(req.body.inputValue);
   res.send(completion.data.choices[0].message.content);
 });
+
+app.post("/login", (req, res)=>{
+  let userJwt = req.headers.authorization;
+  const receivedClientId= req.body;
+
+  userJwt = userJwt.split(" ");
+  userJwt = userJwt[1];
+  userJwt = jwt_decode(userJwt);
+  console.log(userJwt)
+  console.log(receivedClientId)
+
+  res.send("done!")
+})
 
 app.get("/", (req, res) => {
   res.send("hi");
