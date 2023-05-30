@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import { ReactComponent as Svg } from "./assets/SubmitButtonSvg.svg";
+import ParaGraph from "./Paragraph";
 const BodyStyled = styled.div`
   display: flex;
   flex: 6.5;
@@ -9,6 +10,19 @@ const BodyStyled = styled.div`
   flex-direction: column;
   text-align: center;
 `;
+
+const TextAreaStyled = styled.div`
+  display: flex;
+  flex-direction: column;
+  background-color: #eee9da;
+  overflow: auto;
+  height: 100vh;
+`;
+
+const TextStyled = styled.div`
+  background-color: #d1ccbc;
+`;
+
 
 const InputAreaStyled = styled.div`
   display: flex;
@@ -21,16 +35,6 @@ const InputAreaStyled = styled.div`
 const InputBoxStyled = styled.div`
   background-color: #bdcdd6;
   height: 9vh;
-`;
-const TextAreaStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  background-color: #eee9da;
-  overflow: auto;
-  height: 100vh;
-`;
-const TextStyled = styled.div`
-  background-color: #d1ccbc;
 `;
 
 const WaitingDiv = styled.div`
@@ -83,10 +87,9 @@ export default function Body() {
       } finally {
         setIsLoading(false);
       }
-    }
-    else {
+    } else {
       // 유저가 인풋창에 아무값도 넣지 않았을때 로직
-      alert("할 말을 입력하고 전송하세요.")
+      alert("할 말을 입력하고 전송하세요.");
     }
   };
 
@@ -94,7 +97,9 @@ export default function Body() {
     <BodyStyled>
       <TextAreaStyled>
         {contents.map((content, index) => (
-          <TextStyled key={index}>{content}</TextStyled>
+          <TextStyled key={index}>
+            <ParaGraph content={content}></ParaGraph>
+          </TextStyled>
         ))}
       </TextAreaStyled>
 
