@@ -6,7 +6,9 @@ export const useAppContext = () => useContext(AppContext);
 
 export const AppProvider = ({ children }) => {
   const [globalObject, setGlobalObject] = useState({
-    chatHistory : []
+    chatHistory : [],
+    name: "",
+    picture: ""
   });
   const updateChatHistory = (newItem) => {
     setGlobalObject(prevState => ({

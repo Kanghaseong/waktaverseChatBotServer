@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import styled, { keyframes } from "styled-components";
-import { ReactComponent as Svg } from "./assets/SubmitButtonSvg.svg";
+import { ReactComponent as SubmitButtonSvg } from "./assets/SubmitButtonSvg.svg";
 import ParaGraph from "./Paragraph";
 import { useAppContext } from './AppContext';
 const BodyStyled = styled.div`
@@ -84,7 +84,7 @@ const RotateAnimation = keyframes`
   }
 `;
 
-const AnimatedSvg = styled(Svg)`
+const AnimatedSvg = styled(SubmitButtonSvg)`
   animation: ${RotateAnimation} 1s linear infinite;
 `;
 
@@ -93,7 +93,7 @@ export default function Body() {
   const [isLoading, setIsLoading] = useState(false);
   const {globalObject, updateChatHistory} = useAppContext();
   const textareaRef = useRef(null);
-  const imageUrls = ["logo192.png", "gosegu-profile-image.jpg"];
+  const imageUrls = ["basicPicture.png", "gosegu-profile-image.jpg"];
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
   const apiEndpointDEV = "http://localhost:4000/chat";
   axios.defaults.withCredentials = true;
@@ -155,7 +155,7 @@ export default function Body() {
               />
             </label>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? <AnimatedSvg /> : <Svg />}
+              {isLoading ? <AnimatedSvg /> : <SubmitButtonSvg />}
             </Button>
           </form>
         </InputBoxStyled>
