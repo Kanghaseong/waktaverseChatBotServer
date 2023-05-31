@@ -25,12 +25,12 @@ const Ptag = styled.p`
 const PtagCon = styled.div`
   width: 40rem;
 `;
-export default function ParaGraph({ content, imageUrl }) {
+export default function ParaGraph({ history, imageUrl }) {
   return (
     <Div>
       <Img src={imageUrl} alt="user-image" />
       <PtagCon>
-        <Ptag>{content}</Ptag>
+        <Ptag>{history}</Ptag>
       </PtagCon>
     </Div>
   );

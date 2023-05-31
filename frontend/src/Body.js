@@ -3,6 +3,7 @@ import axios from "axios";
 import styled, { keyframes } from "styled-components";
 import { ReactComponent as Svg } from "./assets/SubmitButtonSvg.svg";
 import ParaGraph from "./Paragraph";
+import { useAppContext } from './AppContext';
 const BodyStyled = styled.div`
   display: flex;
   flex: 6.5;
@@ -88,9 +89,9 @@ const AnimatedSvg = styled(Svg)`
 `;
 
 export default function Body() {
-  const [contents, setContents] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [chatHistory, setChatHistory] = useAppContext();
   const textareaRef = useRef(null);
   const imageUrls = ["logo192.png", "gosegu-profile-image.jpg"];
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
@@ -102,12 +103,13 @@ export default function Body() {
     if (textareaRef.current) {
       textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
     }
-  }, [contents]); // contents 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
+  }, [chatHistory]); // chatHistory 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
 
   const handleButtonClick = async (event) => {
     event.preventDefault();
     if (inputValue) {
-      setContents([...contents, inputValue]);
+      setChatHistory([...chatHistory, inputValue]);
+      //setContents([...contents, inputValue]);
       setIsLoading(true);
       setInputValue("");
       try {
@@ -116,7 +118,8 @@ export default function Body() {
           { inputValue },
           { withCredentials: true }
         );
-        setContents((prevItems) => [...prevItems, response.data]);
+        //setContents((prevItems) => [...prevItems, response.data]);
+        setChatHistory((prevItems) => [...prevItems, response.data]);
       } catch (error) {
         console.error(error);
       } finally {
@@ -131,10 +134,10 @@ export default function Body() {
   return (
     <BodyStyled>
       <TextAreaStyled ref={textareaRef}>
-        {contents.map((content, index) => (
+        {chatHistory.map((history, index) => (
           <TextStyled key={index} primary={index}>
             <ParaGraph
-              content={content}
+              history={history}
               imageUrl={imageUrls[index % 2]}
             ></ParaGraph>
           </TextStyled>
