@@ -6,10 +6,9 @@ const helmet = require("helmet");
 const app = express();
 const port = 4000;
 const jwt_decode = require('jwt-decode');
+const util = require('util');
 
 let totalToken = 0;
-let Gosegu = "";
-
 
 app.use(helmet());
 app.use(
@@ -28,36 +27,39 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-const filePath = path.join(__dirname, "goseguText.txt");
 
-if (fs.existsSync(filePath)) {
-  fs.readFile(filePath, "utf8", (err, data) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
-    Gosegu = data; 
-    
-    
-  });
-} else {
-  console.error("File not found: goseguText.txt");
-} 
 
-var chatArray =  [
-  { role: "system", content: Gosegu },
-];
+const readFilePromise = util.promisify(fs.readFile);
+
+async function readGoseguFile() {
+  const filePath = "goseguText.txt";
+  try {
+    const data = await readFilePromise(filePath, "utf8");
+    return data;
+  } catch (err) {
+    console.error(err);
+    return null;
+  }
+}
+
+let Gosegu = "";
+
+readGoseguFile().then((data) => {
+  Gosegu = data;
+});
+
+const chatArray = [{ role: "system", content: "" }];
+
 
 app.post("/chat", async (req, res) => {
   
   const inputValue = req.body.inputValue;
- 
+  chatArray[0].content = Gosegu; 
   chatArray.push({role: "user", content : `${inputValue}`})
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo", 
     temperature:1,
-    max_tokens: 1200,
-    messages: chatArray,
+    messages: chatArray, // commit 당시 고세구 학습데이터가 content로 넘어가지않음
   });
   totalToken += completion.data.usage.total_tokens
   console.log(totalToken)
