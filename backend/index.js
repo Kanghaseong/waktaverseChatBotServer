@@ -7,6 +7,10 @@ const app = express();
 const port = 4000;
 const jwt_decode = require('jwt-decode');
 
+let totalToken = 0;
+let Gosegu = "";
+
+
 app.use(helmet());
 app.use(
   cors({
@@ -24,8 +28,6 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-let Gosegu = "";
-
 const filePath = path.join(__dirname, "goseguText.txt");
 
 if (fs.existsSync(filePath)) {
@@ -34,24 +36,33 @@ if (fs.existsSync(filePath)) {
       console.error(err);
       return;
     }
-    Gosegu = data;
+    Gosegu = data; 
+    
+    
   });
 } else {
   console.error("File not found: goseguText.txt");
-}
+} 
+
+var chatArray =  [
+  { role: "system", content: Gosegu },
+];
 
 app.post("/chat", async (req, res) => {
+  
   const inputValue = req.body.inputValue;
+ 
+  chatArray.push({role: "user", content : `${inputValue}`})
   const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      { role: "system", content: /*Gosegu*/"너는 비서야." },
-      { role: "user", content: `${inputValue}` },
-    ],
+    model: "gpt-3.5-turbo", 
+    temperature:1,
+    max_tokens: 1200,
+    messages: chatArray,
   });
-  console.log(completion.data.choices[0].message.content);
-  console.log(req.body.inputValue);
-  console.log(completion)
+  totalToken += completion.data.usage.total_tokens
+  console.log(totalToken)
+  chatArray.push({ role: "assistant", content : `${completion.data.choices[0].message.content}`})
+  console.log(chatArray)
   res.send(completion.data.choices[0].message.content);
 });
 
