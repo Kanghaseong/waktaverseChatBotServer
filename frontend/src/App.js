@@ -6,6 +6,7 @@ import Body from "./Body";
 const Container = styled.div`
   display: flex;
   height: 100vh;
+  
 `;
 
 function App() {

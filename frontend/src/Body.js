@@ -6,7 +6,6 @@ import ParaGraph from "./Paragraph";
 const BodyStyled = styled.div`
   display: flex;
   flex: 6.5;
-  background-color: #eee9da;
   flex-direction: column;
   text-align: center;
 `;
@@ -14,28 +13,38 @@ const BodyStyled = styled.div`
 const TextAreaStyled = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #eee9da;
+  background-color: #fffaee;
   overflow: auto;
   height: 100vh;
   scroll-behavior: smooth;
+  &::-webkit-scrollbar {
+    height: 1rem;
+    width: 1rem;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: #CFB997;
+    border-radius: 9999px;
+    border-width: 1px;
+}
+
 `;
 
 const TextStyled = styled.div`
-  border-bottom: 1px solid #d1ccbc;
+  border-bottom: 1px solid #EEE9DA;
   background-color: ${(props) =>
-    props.primary % 2 == 0 ? "#eee9da" : "#d1ccbc"};
+    props.primary % 2 == 0 ? "#fffaee" : "#EEE9DA"};
 `;
 
 const InputAreaStyled = styled.div`
   display: flex;
-  background-color: #bdcdd6;
+  background-color: #c8d9e3;
   flex-direction: column;
   justify-content: flex-end;
   height: 20vh;
 `;
 
 const InputBoxStyled = styled.div`
-  background-color: #bdcdd6;
+  background-color: #c8d9e3;
   height: 9vh;
 `;
 
@@ -50,7 +59,7 @@ const Input = styled.input`
   width: 30rem;
   height: 2.5rem;
   line-height: 2.5rem;
-  background-color: #cfdfe8;
+  background-color: #dfeaf0;
   border: 1px;
   border-radius: 5px;
   padding-left: 10px;
