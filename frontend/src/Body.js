@@ -91,7 +91,7 @@ const AnimatedSvg = styled(Svg)`
 export default function Body() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [chatHistory, setChatHistory] = useAppContext();
+  const {globalObject, updateChatHistory} = useAppContext();
   const textareaRef = useRef(null);
   const imageUrls = ["logo192.png", "gosegu-profile-image.jpg"];
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
@@ -103,12 +103,12 @@ export default function Body() {
     if (textareaRef.current) {
       textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
     }
-  }, [chatHistory]); // chatHistory 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
+  }, [globalObject]); // chatHistory 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
 
   const handleButtonClick = async (event) => {
     event.preventDefault();
     if (inputValue) {
-      setChatHistory([...chatHistory, inputValue]);
+      updateChatHistory(inputValue);
       //setContents([...contents, inputValue]);
       setIsLoading(true);
       setInputValue("");
@@ -119,7 +119,7 @@ export default function Body() {
           { withCredentials: true }
         );
         //setContents((prevItems) => [...prevItems, response.data]);
-        setChatHistory((prevItems) => [...prevItems, response.data]);
+        updateChatHistory(response.data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -134,7 +134,7 @@ export default function Body() {
   return (
     <BodyStyled>
       <TextAreaStyled ref={textareaRef}>
-        {chatHistory.map((history, index) => (
+        {globalObject.chatHistory.map((history, index) => (
           <TextStyled key={index} primary={index}>
             <ParaGraph
               history={history}
