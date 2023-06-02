@@ -95,6 +95,7 @@ export default function Body() {
   const textareaRef = useRef(null);
   const imageUrls = ["basicPicture.png", "gosegu-profile-image.jpg"];
   const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
+  const apiEndpointDEMO = process.env.REACT_APP_API_ENDPOINT_DEMO;
   //const apiEndpointDEV = "http://localhost:4000/chat";
   axios.defaults.withCredentials = true;
 
@@ -114,7 +115,7 @@ export default function Body() {
       setInputValue("");
       try {
         const response = await axios.post(
-          apiEndpoint,
+          apiEndpointDEMO,
           { inputValue },
           { withCredentials: true }
         );

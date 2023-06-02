@@ -4,7 +4,7 @@ const fs = require("fs");
 const cors = require("cors");
 const helmet = require("helmet");
 const app = express();
-const port = 4000;
+const port = 4001;
 const jwt_decode = require('jwt-decode');
 const util = require('util');
 
