@@ -77,8 +77,14 @@ app.post("/login", (req, res)=>{
   userJwt = jwt_decode(userJwt);
   console.log(userJwt)
   console.log(receivedClientId)
-
-  res.send("done!")
+  
+  const userProfile = {
+    name : userJwt.name,
+    email : userJwt.email,
+    picture : userJwt.picture,
+  }
+  console.log(userProfile)
+  res.json(userProfile)
 })
 
 app.get("/", (req, res) => {

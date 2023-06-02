@@ -40,7 +40,7 @@ export default function SideBar({loginFlag}) {
 
         
       <GoogleLoginWrapper>
-        {isLogin ? <div>로그인 되었습니다.</div> : <GoogleLoginButton loginFlag={handleLoginState}/>}
+        {/*isLogin ? <div>로그인 되었습니다.</div> : <GoogleLoginButton loginFlag={handleLoginState}/>*/}
       </GoogleLoginWrapper>
     </SideBarStyled>
   );
