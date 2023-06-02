@@ -13,7 +13,7 @@ let totalToken = 0;
 app.use(helmet());
 app.use(
   cors({
-    origin: ["https://wakgpt.xyz","https://waktaversechatbotserver.pages.dev/", "http://localhost:3000"],
+    origin: ["https://wakgpt.xyz","https://waktaversechatbotserver.pages.dev/", "http://localhost:3000", "https://api.waktaversechatbotserver.pages.dev/"],
     credentials: true,
   })
 );
