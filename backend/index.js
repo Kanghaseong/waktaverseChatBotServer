@@ -7,20 +7,23 @@ const app = express();
 const port = 4001;
 const jwt_decode = require('jwt-decode');
 const util = require('util');
+const path = require("path");
 
 let totalToken = 0;
 
 app.use(helmet());
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(
   cors({
-    origin: ["https://wakgpt.xyz","https://waktaversechatbotserver.pages.dev/", "http://localhost:3000", "https://api.waktaversechatbotserver.pages.dev/"],
+    origin: ["https://wakgpt.xyz","https://waktaversechatbotserver.pages.dev/", "http://localhost:3000", "https://api.waktaversechatbotserver.pages.dev/", "http://localhost:4001"],
     credentials: true,
   })
 );
 app.use(express.json());
 
 const { Configuration, OpenAIApi } = require("openai");
-const path = require("path");
+
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -64,7 +67,6 @@ app.post("/chat", async (req, res) => {
   totalToken += completion.data.usage.total_tokens
   console.log(totalToken)
   chatArray.push({ role: "assistant", content : `${completion.data.choices[0].message.content}`})
-  console.log(chatArray)
   res.send(completion.data.choices[0].message.content);
 });
 
@@ -88,7 +90,7 @@ app.post("/login", (req, res)=>{
 })
 
 app.get("/", (req, res) => {
-  res.send("hi");
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
 app.listen(port, () => {
