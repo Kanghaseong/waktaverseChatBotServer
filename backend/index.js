@@ -30,8 +30,6 @@ const configuration = new Configuration({
 
 const openai = new OpenAIApi(configuration);
 
-
-
 const readFilePromise = util.promisify(fs.readFile);
 
 async function readGoseguFile() {
