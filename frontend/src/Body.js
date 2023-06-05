@@ -93,8 +93,7 @@ export default function Body() {
   const { globalObject, updateChatHistory } = useAppContext();
   const textareaRef = useRef(null);
   const imageUrls = ["basicPicture.png", "gosegu-profile-image.jpg"];
-  const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
-  //const apiEndpointDEV = "http://localhost:4001/chat";
+  const apiEndpoint = process.env.NODE_ENV === 'development' ? "http://localhost:4001/chat" : process.env.REACT_APP_API_ENDPOINT;
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
