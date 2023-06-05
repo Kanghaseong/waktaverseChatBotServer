@@ -3,7 +3,7 @@ import axios from "axios";
 import styled, { keyframes } from "styled-components";
 import { ReactComponent as SubmitButtonSvg } from "./assets/SubmitButtonSvg.svg";
 import ParaGraph from "./Paragraph";
-import { useAppContext } from './AppContext';
+import { useAppContext } from "./AppContext";
 const BodyStyled = styled.div`
   display: flex;
   flex: 6.5;
@@ -23,15 +23,14 @@ const TextAreaStyled = styled.div`
     width: 1rem;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: #CFB997;
+    background-color: #cfb997;
     border-radius: 9999px;
     border-width: 1px;
-}
-
+  }
 `;
 
 const TextStyled = styled.div`
-  border-bottom: 1px solid #EEE9DA;
+  border-bottom: 1px solid #eee9da;
   background-color: ${(props) =>
     props.primary % 2 == 0 ? "#fffaee" : "#EEE9DA"};
 `;
@@ -91,11 +90,11 @@ const AnimatedSvg = styled(SubmitButtonSvg)`
 export default function Body() {
   const [inputValue, setInputValue] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const {globalObject, updateChatHistory} = useAppContext();
+  const { globalObject, updateChatHistory } = useAppContext();
   const textareaRef = useRef(null);
   const imageUrls = ["basicPicture.png", "gosegu-profile-image.jpg"];
   //const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
-  //const apiEndpointDEMO = process.env.REACT_APP_API_ENDPOINT_DEMO;
+  const apiEndpointDEMO = process.env.REACT_APP_API_ENDPOINT_DEMO;
   const apiEndpointDEV = "http://localhost:4001/chat";
   axios.defaults.withCredentials = true;
 
@@ -115,7 +114,7 @@ export default function Body() {
       setInputValue("");
       try {
         const response = await axios.post(
-          apiEndpointDEV,
+          apiEndpointDEMO,
           { inputValue },
           { withCredentials: true }
         );
