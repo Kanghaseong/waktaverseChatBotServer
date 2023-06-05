@@ -16,13 +16,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use(
   cors({
-    origin: [
-      "https://wakgpt.xyz",
-      "https://waktaversechatbotserver.pages.dev/",
-      "http://localhost:3000",
-      "https://api.waktaversechatbotserver.pages.dev/",
-      "http://localhost:4001",
-    ],
+    origin: ["https://wakgpt.xyz", "http://localhost:3000"],
     credentials: true,
   })
 );
