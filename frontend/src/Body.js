@@ -48,10 +48,6 @@ const InputBoxStyled = styled.div`
   height: 9vh;
 `;
 
-const WaitingDiv = styled.div`
-  background-color: #d1ccbc;
-`;
-
 const Input = styled.input`
   outline: none;
   -webkit-tap-highlight-color: transparent;
@@ -93,7 +89,10 @@ export default function Body() {
   const { globalObject, updateChatHistory } = useAppContext();
   const textareaRef = useRef(null);
   const imageUrls = ["basicPicture.png", "gosegu-profile-image.jpg"];
-  const apiEndpoint = process.env.NODE_ENV === 'development' ? "http://localhost:4001/chat" : process.env.REACT_APP_API_ENDPOINT;
+  const apiEndpoint =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:4001/chat"
+      : process.env.REACT_APP_API_ENDPOINT;
   axios.defaults.withCredentials = true;
 
   useEffect(() => {
@@ -105,9 +104,9 @@ export default function Body() {
 
   const handleButtonClick = async (event) => {
     event.preventDefault();
+
     if (inputValue) {
       updateChatHistory(inputValue);
-      //setContents([...contents, inputValue]);
       setIsLoading(true);
       setInputValue("");
       try {
@@ -116,7 +115,6 @@ export default function Body() {
           { inputValue },
           { withCredentials: true }
         );
-        //setContents((prevItems) => [...prevItems, response.data]);
         updateChatHistory(response.data);
       } catch (error) {
         console.error(error);
@@ -124,7 +122,6 @@ export default function Body() {
         setIsLoading(false);
       }
     } else {
-      // 유저가 인풋창에 아무값도 넣지 않았을때 로직
       alert("할 말을 입력하고 전송하세요.");
     }
   };
