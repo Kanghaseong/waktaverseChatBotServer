@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import styled, { keyframes } from "styled-components";
-import { ReactComponent as SubmitButtonSvg } from "./assets/SubmitButtonSvg.svg";
+import styled from "styled-components";
+import { ReactComponent as SendButtonSvg } from "./assets/SendButtonSvg.svg";
 import ParaGraph from "./Paragraph";
 import { useAppContext } from "./AppContext";
 const BodyStyled = styled.div`
@@ -51,7 +51,6 @@ const InputBoxStyled = styled.div`
 const Input = styled.input`
   outline: none;
   -webkit-tap-highlight-color: transparent;
-  cursor: pointer;
   width: 30rem;
   height: 2.5rem;
   line-height: 2.5rem;
@@ -63,6 +62,10 @@ const Input = styled.input`
     border: 1px solid #daebf5;
   }
   box-sizing: border-box; /* box-sizing 속성 추가 */
+  &:focus {
+    border: 1px solid #e8f7ff; /* 포커스 시 아웃라인 스타일 추가 */
+    box-shadow: 0 0 5px #e8f7ff; /* 포커스 시 그림자 효과 추가 */
+  }
 `;
 
 const Button = styled.button`
@@ -70,23 +73,30 @@ const Button = styled.button`
   background-color: transparent;
 `;
 
-const RotateAnimation = keyframes`
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+const StyledSvg = styled(SendButtonSvg)`
+  width: 2rem;
+  height: 2rem;
+  background-color: ${(props) => (props.hasInputValue ? "#e8f7ff" : "initial")};
+  transition: background-color 0.5s ease, fill 0.5s ease;
+  border-radius: 5px;
+  fill: ${(props) => (props.hasInputValue ? "#368ff5" : "#6c8891")};
 `;
 
-const AnimatedSvg = styled(SubmitButtonSvg)`
-  animation: ${RotateAnimation} 1s linear infinite;
+const Form = styled.form`
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 export default function Body() {
   const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const { globalObject, updateChatHistory } = useAppContext();
+  const {
+    globalObject,
+    updateChatHistory,
+    overWrite,
+    isLoading,
+    setIsLoading,
+  } = useAppContext();
   const textareaRef = useRef(null);
   const imageUrls = ["basicPicture.png", "gosegu-profile-image.jpg"];
   const apiEndpoint =
@@ -100,22 +110,19 @@ export default function Body() {
     if (textareaRef.current) {
       textareaRef.current.scrollTop = textareaRef.current.scrollHeight;
     }
-  }, [globalObject]); // chatHistory 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
+  }, [globalObject.chatHistory]); // chatHistory 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
 
   const handleButtonClick = async (event) => {
     event.preventDefault();
 
     if (inputValue) {
       updateChatHistory(inputValue);
+      updateChatHistory("");
       setIsLoading(true);
       setInputValue("");
       try {
-        const response = await axios.post(
-          apiEndpoint,
-          { inputValue },
-          { withCredentials: true }
-        );
-        updateChatHistory(response.data);
+        const response = await axios.post(apiEndpoint, { inputValue });
+        overWrite(response.data);
       } catch (error) {
         console.error(error);
       } finally {
@@ -134,6 +141,7 @@ export default function Body() {
             <ParaGraph
               history={history}
               imageUrl={imageUrls[index % 2]}
+              isLastKey={index === globalObject.chatHistory.length - 1}
             ></ParaGraph>
           </TextStyled>
         ))}
@@ -141,18 +149,20 @@ export default function Body() {
 
       <InputAreaStyled>
         <InputBoxStyled>
-          <form onSubmit={handleButtonClick}>
+          <Form onSubmit={handleButtonClick}>
             <label>
               <Input
                 type="text"
                 value={inputValue}
                 onChange={(event) => setInputValue(event.target.value)}
+                required
               />
             </label>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? <AnimatedSvg /> : <SubmitButtonSvg />}
+              {/* {isLoading ? <AnimatedSvg /> : <SubmitButtonSvg />} */}
             </Button>
-          </form>
+            <StyledSvg hasInputValue={inputValue !== ""} />
+          </Form>
         </InputBoxStyled>
       </InputAreaStyled>
     </BodyStyled>

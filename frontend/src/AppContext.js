@@ -10,6 +10,7 @@ export const AppProvider = ({ children }) => {
     name: "",
     picture: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const updateChatHistory = (newItem) => {
     setGlobalObject((prevState) => ({
@@ -18,8 +19,26 @@ export const AppProvider = ({ children }) => {
     }));
   };
 
+  const overWrite = (overwriteValue) => {
+    setGlobalObject((prevState) => {
+      const updatedChatHistory = [...prevState.chatHistory];
+      if (updatedChatHistory.length > 0) {
+        const lastIndex = updatedChatHistory.length - 1;
+        const lastItem = updatedChatHistory[lastIndex];
+        const updatedLastItem = overwriteValue;
+        updatedChatHistory[lastIndex] = updatedLastItem;
+      }
+      return {
+        ...prevState,
+        chatHistory: updatedChatHistory,
+      };
+    });
+  };
+  
+  
+
   return (
-    <AppContext.Provider value={{ globalObject, updateChatHistory }}>
+    <AppContext.Provider value={{ globalObject, isLoading, updateChatHistory, overWrite, setIsLoading }}>
       {children}
     </AppContext.Provider>
   );
