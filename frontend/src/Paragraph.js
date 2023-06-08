@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-
+import styled, { keyframes } from "styled-components";
+import { useAppContext } from "./AppContext";
+import { ReactComponent as SubmitButtonSvg } from "./assets/SubmitButtonSvg.svg";
 const Div = styled.div`
   display: flex;
   text-align: left;
   margin-bottom: 1rem;
   margin: 2rem 2rem;
-  
 `;
 
 const Img = styled.img`
@@ -24,14 +24,29 @@ const Ptag = styled.p`
 const PtagCon = styled.div`
   width: 40rem;
 `;
-export default function ParaGraph({ history, imageUrl }) {
+const RotateAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+`;
+const AnimatedSvg = styled(SubmitButtonSvg)`
+  animation: ${RotateAnimation} 1s linear infinite;
+`;
+
+export default function ParaGraph({ history, imageUrl, isLastKey }) {
+  const { isLoading } = useAppContext();
   return (
     <Div>
       <Img src={imageUrl} alt="user-image" />
       <PtagCon>
-        <Ptag>{history}</Ptag>
+        <Ptag>
+          {isLastKey && isLoading && <AnimatedSvg />}
+          {history}
+        </Ptag>
       </PtagCon>
     </Div>
   );
 }
-

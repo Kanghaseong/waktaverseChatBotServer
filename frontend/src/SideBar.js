@@ -19,6 +19,15 @@ const GoogleLoginWrapper = styled.div`
   margin: 1rem;
 `;
 
+const Title = styled.div`
+font-family: 'Jua', sans-serif;
+font-family: 'Nanum Myeongjo', serif;
+font-family: 'Noto Serif HK', serif;
+font-weight: 800;
+font-size: 3rem;
+padding-left : 5px;
+`
+
 export default function SideBar({loginFlag}) {
     const [sidebarItems, setSidebarItems] = useState([]);
     const [isLogin, setIsLogin] = useState(false); // 이 변수이름도 로그인플래그로 하는게 맞는거같은데 일단 보류 중
@@ -35,8 +44,9 @@ export default function SideBar({loginFlag}) {
     
   return (
     <SideBarStyled>
-        <NewChatButton onAddItem={handleAddItem}/>
-        {sidebarItems}  
+        {/* <NewChatButton onAddItem={handleAddItem}/>
+        {sidebarItems}   */}
+        <Title>고세구GPT 베타</Title>
 
         
       <GoogleLoginWrapper>
