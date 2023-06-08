@@ -46,7 +46,7 @@ app.post("/chat", async (req, res) => {
     ],
   });
   console.log("User Input:", inputValue);
-  console.log("API Response:", responseContent);
+  console.log("API Response:", completion.data.choices[0].message.content);
   res.send(completion.data.choices[0].message.content);
 });
 
