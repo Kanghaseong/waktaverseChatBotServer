@@ -37,16 +37,22 @@ app.use((req, res, next) => {
 });
 
 app.post("/chat", async (req, res) => {
-  const inputValue = req.body.inputValue;
-  const completion = await openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [
-      { role: "system", content: promptGosegu },
-      { role: "user", content: inputValue },
-    ],
-  });
-
-  res.send(completion.data.choices[0].message.content);
+  try {
+    const inputValue = req.body.inputValue;
+    const completion = await openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [
+        { role: "system", content: promptGosegu },
+        { role: "user", content: inputValue },
+      ],
+    });
+    console.log("User Input:", inputValue);
+    console.log("API Response:", completion.data.choices[0].message.content);
+    res.send(completion.data.choices[0].message.content);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 app.get("/", (req, res) => {
