@@ -50,7 +50,9 @@ app.post("/chat", async (req, res) => {
     console.log("API Response:", completion.data.choices[0].message.content);
     res.send(completion.data.choices[0].message.content);
   } catch (err) {
-    console.error(err);
+    
+    console.error(err); // 에러 객체 전체 출력
+    console.error("Error Message:", err.message); // 에러 객체의 핵심 메시지 출력
     res.status(500).send("Internal Server Error");
   }
 });
