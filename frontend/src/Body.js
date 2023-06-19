@@ -113,24 +113,25 @@ export default function Body() {
   }, [globalObject.chatHistory]); // chatHistory 배열이 업데이트될 때마다 useEffect가 호출되도록 설정
 
   const handleButtonClick = async (event) => {
-    event.preventDefault();
+    alert("업데이트 이후 찾아뵙겠습니다. 킹아~")
+    // event.preventDefault();
 
-    if (inputValue) {
-      updateChatHistory(inputValue);
-      updateChatHistory("");
-      setIsLoading(true);
-      setInputValue("");
-      try {
-        const response = await axios.post(apiEndpoint, { inputValue });
-        overWrite(response.data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsLoading(false);
-      }
-    } else {
-      alert("할 말을 입력하고 전송하세요.");
-    }
+    // if (inputValue) {
+    //   updateChatHistory(inputValue);
+    //   updateChatHistory("");
+    //   setIsLoading(true);
+    //   setInputValue("");
+    //   try {
+    //     const response = await axios.post(apiEndpoint, { inputValue });
+    //     overWrite(response.data);
+    //   } catch (error) {
+    //     console.error(error);
+    //   } finally {
+    //     setIsLoading(false);
+    //   }
+    // } else {
+    //   alert("할 말을 입력하고 전송하세요.");
+    // }
   };
 
   return (
